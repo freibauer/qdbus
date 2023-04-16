@@ -272,7 +272,7 @@ static int placeCall(const QString &service, const QString &path, const QString 
 
         for (int i = mo->methodOffset(); i < mo->methodCount(); ++i) {
             QMetaMethod mm = mo->method(i);
-            QByteArray signature = mm.signature();
+            QByteArray signature = mm.methodSignature();
             if (signature.startsWith(match))
                 knownIds += i;
          }
