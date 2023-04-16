@@ -17,5 +17,5 @@ INCLUDEPATH += ../recipe-sysroot/usr/include/QtDBus/5.15.3
 INCLUDEPATH += ../recipe-sysroot/usr/include
 INCLUDEPATH += ../recipe-sysroot/usr/include/QtCore/5.15.3/
 
-LFLAGS + = -dynamic ../recipe-sysroot/usr/lib/libQt5DBus.so.5.15.3 
+QMAKE_LFLAGS += -dynamic ../recipe-sysroot/usr/lib/libQt5DBus.so.5.15.3 
 
