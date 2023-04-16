@@ -181,7 +181,7 @@ static void listInterface(const QString &service, const QString &path, const QSt
     for (int i = mo->methodOffset(); i < mo->methodCount(); ++i) {
         QMetaMethod mm = mo->method(i);
 
-        QByteArray signature = mm.signature();
+        QByteArray signature = mm.methodSignature();
         signature.truncate(signature.indexOf('('));
         printf("%s %s%s%s %s.%s(",
                mm.methodType() == QMetaMethod::Signal ? "signal" : "method",
