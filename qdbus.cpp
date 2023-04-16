@@ -128,7 +128,7 @@ static void listObjects(const QString &service, const QString &path)
             if (err.type() == QDBusError::ServiceUnknown)
                 fprintf(stderr, "Service '%s' does not exist.\n", qPrintable(service));
             else
-                printf("Error: %s\n%s\n", qPrintable(err.name()), qPrintable(err.message()));
+                printf("Error: %s\n%s\n", qPrintable(err.message()), qPrintable(err.message()));
             exit(2);
         }
     } else if (!xml.isValid()) {
@@ -157,7 +157,7 @@ static void listInterface(const QString &service, const QString &path, const QSt
         QDBusError err(iface.lastError());
         fprintf(stderr, "Interface '%s' not available in object %s at %s:\n%s (%s)\n",
                 qPrintable(interface), qPrintable(path), qPrintable(service),
-                qPrintable(err.name()), qPrintable(err.message()));
+                qPrintable(err.message()), qPrintable(err.message()));
         exit(1);
     }
     const QMetaObject *mo = iface.metaObject();
@@ -217,7 +217,7 @@ static void listAllInterfaces(const QString &service, const QString &path)
         if (err.type() == QDBusError::ServiceUnknown)
             fprintf(stderr, "Service '%s' does not exist.\n", qPrintable(service));
         else
-            printf("Error: %s\n%s\n", qPrintable(err.name()), qPrintable(err.message()));
+            printf("Error: %s\n%s\n", qPrintable(err.message()), qPrintable(err.message()));
         exit(2);
     }
 
@@ -393,7 +393,7 @@ static int placeCall(const QString &service, const QString &path, const QString 
         if (err.type() == QDBusError::ServiceUnknown)
             fprintf(stderr, "Service '%s' does not exist.\n", qPrintable(service));
         else
-            printf("Error: %s\n%s\n", qPrintable(err.name()), qPrintable(err.message()));
+            printf("Error: %s\n%s\n", qPrintable(err.message()), qPrintable(err.message()));
         return 2;
     } else if (reply.type() != QDBusMessage::ReplyMessage) {
         fprintf(stderr, "Invalid reply type %d\n", int(reply.type()));
