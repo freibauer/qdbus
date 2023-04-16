@@ -13,5 +13,6 @@ target.CONFIG = no_check_exist executable
 INSTALLS += target
 
 INCLUDEPATH += ../recipe-sysroot/usr/include/QtDBus/5.15.3/QtDBus/
+INCLUDEPATH += ../recipe-sysroot/usr/include/QtDBus/5.15.3
 
 
