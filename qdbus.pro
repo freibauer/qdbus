@@ -1,10 +1,17 @@
-SOURCES = qdbus.cpp
-DESTDIR = ../../../bin
+TEMPLATE = app
 TARGET = qdbus
-QT = core xml
-CONFIG += qdbus
-CONFIG -= app_bundle
-win32:CONFIG += console
+CONFIG += c++11 link_pkgconfig
 
-target.path=$$[QT_INSTALL_BINS]
+
+SOURCES = \
+    qdbus.cpp \
+
+target.path = /usr/bin
+target.files += $${OUT_PWD}/$${TARGET}
+target.CONFIG = no_check_exist executable
+
 INSTALLS += target
+
+INCLUDEPATH += /recipe-sysroot/usr/include/QtDBus/5.15.3/QtDBus/
+
+
