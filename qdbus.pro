@@ -1,7 +1,7 @@
 TEMPLATE = app
 TARGET = qdbus
 CONFIG += c++11 link_pkgconfig
-
+QT += dbus
 
 SOURCES = \
     qdbus.cpp \
