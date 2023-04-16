@@ -124,7 +124,12 @@ static void listObjects(const QString &service, const QString &path)
         if (xml.isValid()) {
             printf("/\n");
         } else {
-             exit(2);
+            QDBusError err = xml.error();
+            if (err.type() == QDBusError::ServiceUnknown)
+                fprintf(stderr, "Service '%s' does not exist.\n", qPrintable(service));
+            else
+                printf("Error: %s\n%s\n", qPrintable(err.name()), qPrintable(err.message()));
+            exit(2);
         }
     } else if (!xml.isValid()) {
         // this is not the first object, just fail silently
@@ -149,6 +154,10 @@ static void listInterface(const QString &service, const QString &path, const QSt
 {
     QDBusInterface iface(service, path, interface, connection);
     if (!iface.isValid()) {
+        QDBusError err(iface.lastError());
+        fprintf(stderr, "Interface '%s' not available in object %s at %s:\n%s (%s)\n",
+                qPrintable(interface), qPrintable(path), qPrintable(service),
+                qPrintable(err.name()), qPrintable(err.message()));
         exit(1);
     }
     const QMetaObject *mo = iface.metaObject();
@@ -207,6 +216,8 @@ static void listAllInterfaces(const QString &service, const QString &path)
         QDBusError err = xml.error();
         if (err.type() == QDBusError::ServiceUnknown)
             fprintf(stderr, "Service '%s' does not exist.\n", qPrintable(service));
+        else
+            printf("Error: %s\n%s\n", qPrintable(err.name()), qPrintable(err.message()));
         exit(2);
     }
 
@@ -381,6 +392,8 @@ static int placeCall(const QString &service, const QString &path, const QString 
         }
         if (err.type() == QDBusError::ServiceUnknown)
             fprintf(stderr, "Service '%s' does not exist.\n", qPrintable(service));
+        else
+            printf("Error: %s\n%s\n", qPrintable(err.name()), qPrintable(err.message()));
         return 2;
     } else if (reply.type() != QDBusMessage::ReplyMessage) {
         fprintf(stderr, "Invalid reply type %d\n", int(reply.type()));
@@ -459,7 +472,10 @@ int main(int argc, char **argv)
         connection = QDBusConnection::sessionBus();
 
     if (!connection.isConnected()) {
-         return 1;
+        fprintf(stderr, "Could not connect to D-Bus server: %s: %s\n",
+                qPrintable(connection.lastError().name()),
+                qPrintable(connection.lastError().message()));
+        return 1;
     }
 
     QDBusConnectionInterface *bus = connection.interface();
