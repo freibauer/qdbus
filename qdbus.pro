@@ -18,4 +18,6 @@ INCLUDEPATH += ../recipe-sysroot/usr/include
 INCLUDEPATH += ../recipe-sysroot/usr/include/QtCore/5.15.3/
 
 QMAKE_LFLAGS += ../recipe-sysroot/usr/lib/libQt5DBus.so
+QMAKE_LFLAGS += /home/boschung/agl/build/tmp/work/corei7-64-agl-linux/qdbus/1.0-r0/recipe-sysroot/usr/lib/libQt5DBus.so
+
 
